@@ -1,4 +1,5 @@
 import { JSX } from 'react'
+// TextStyleの型をインポート
 import { View, Text, StyleSheet, type TextStyle} from 'react-native'
 
 interface  Props {
@@ -11,13 +12,15 @@ interface  Props {
 const Hello = (props:Props): JSX.Element => {
 
     // 分割代入
+    // スタイルをpropsで受け取る
     const {children, bang, style} = props
 
     return (
         <View>
+            {/* 受け取ったスタイルを優先で適用 */}
             <Text style={[styles.text, style]}>
                 {/* 三項演算子 */}
-                Hello {children}{bang ? '!' : ''}
+                Hello {children}{bang ? '!!' : ''}
             </Text>
         </View>
     )
