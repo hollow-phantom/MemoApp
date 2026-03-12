@@ -1,11 +1,16 @@
 import { JSX } from 'react'
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { router } from 'expo-router'
 
 // 共通コンポーネント
 import Header from '../../components/Header'
 import CircleButton from '../../components/CircleButton'
 import Icon from '../../components/Icon'
+
+const handlePress = ():void => {
+    router.push('/memo/edit')
+}
 
 const Detail = ():JSX.Element => {
     return (
@@ -25,7 +30,7 @@ const Detail = ():JSX.Element => {
                 </Text>
             </ScrollView>
             {/* ボタン */}
-            <CircleButton style={{ top:160, bottom:'auto' }}>
+            <CircleButton onPress={handlePress} style={{ top:160, bottom:'auto' }}>
                 <Icon name='pencil' size={40} color='#ffffff' />
             </CircleButton>
         </View>
