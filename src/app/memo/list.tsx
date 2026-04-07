@@ -5,6 +5,7 @@ import { collection, onSnapshot, query, orderBy } from 'firebase/firestore'
 
 // 各パーツのコンポーネント
 // import Header from '../../components/Header'
+//
 import MemoListItem from '../../components/MemoListItem'
 import CircleButton from '../../components/CircleButton'
 import LogOutButton from '../../components/LogOutButton'
