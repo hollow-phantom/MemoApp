@@ -6,12 +6,26 @@ import { useState } from 'react'
 
 // import Header from '../../components/Header'
 import Button from '../../components/Button'
+import { auth } from '../../config'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-const handlePress = ():void => {
+const handlePress = (email:string, password:string):void => {
 
-    // 簡易画面遷移
-    router.push('/memo/list')
+    // 会員登録
+    console.log(email,password)
+    createUserWithEmailAndPassword(auth,email, password)
+    .then((userCredential) => {
+        // 処理成功時
+        console.log(userCredential.user.uid)
+        router.replace('/memo/list')
+    })
+    .catch((error) => {
+        // 処理失敗時
+        const { code, message } = error
+        console.log(code, message)
+        Alert.alert(message)
 
+    })
 }
 
 const SignUp = (): JSX.Element => {
@@ -41,10 +55,10 @@ const SignUp = (): JSX.Element => {
                     placeholder='Password'
                     textContentType='password'
                 />
-                <Button label='Submit' onPress={handlePress} />
+                <Button label='Submit' onPress={() => { handlePress(email, password)}} />
                 <View style={styles.footer}>
                     <Text style={styles.footerText}>Already registered?</Text>
-                    <Link href="/auth/log_in" asChild>
+                    <Link href="/auth/log_in" asChild replace>
                         <TouchableOpacity>
                             <Text style={styles.footerLink}>Log in</Text>
                         </TouchableOpacity>
