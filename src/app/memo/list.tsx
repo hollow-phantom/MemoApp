@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore'
 
-// 各パーツのコンポーネント
+// 各パーツのコンポーネントq
 // import Header from '../../components/Header'
 //
 import MemoListItem from '../../components/MemoListItem'
@@ -11,14 +11,17 @@ import CircleButton from '../../components/CircleButton'
 import LogOutButton from '../../components/LogOutButton'
 import Icon from '../../components/Icon'
 import { router, useNavigation } from 'expo-router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { db, auth } from '../../config'
+import {type Memo} from '../../../types/memo'
 
 const handlePress = (): void => {
     router.push('/memo/create')
 }
 
 const List = (): JSX.Element => {
+
+    const [memos, setMemos] = useState<Memo[]>([])
 
     // hooks内にhooksはかけないので、外に定義
     const navigation = useNavigation()
@@ -37,9 +40,17 @@ const List = (): JSX.Element => {
         const q = query(ref, orderBy('updatetedAt', 'desc'))
         // スナップショット取得・監視実行
         const unsubscribe = onSnapshot(q, (snapShot) => {
+            const remoteMemos: Memo[] = []
             snapShot.forEach( (doc) => {
                 console.log('memo', doc.data())
+                const { bodyText, updatetedAt } = doc.data()
+                remoteMemos.push({
+                    id: doc.id,
+                    bodyText,
+                    updatetedAt
+                })
             })
+            setMemos(remoteMemos)
         })
         // コンポーネントを閉じた場合にスナップショット監視を終了(重要)
         return unsubscribe
