@@ -1,5 +1,5 @@
 import { JSX } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore'
 
@@ -58,15 +58,12 @@ const List = (): JSX.Element => {
 
     return (
         <View style={styles.container}>
-            {/* ヘッダー */}
-            {/* < Header /> */}
-
             {/* コンテンツ */}
-            <View>
-                < MemoListItem />
-                < MemoListItem />
-                < MemoListItem />
-            </View>
+            <FlatList
+                data={memos}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={( {item} ) => <MemoListItem memo={item} />}
+            />
 
             {/* ボタン */}
             < CircleButton onPress={handlePress}>
