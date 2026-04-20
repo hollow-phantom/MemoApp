@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "frontend",
-    "slug": "frontend",
+    "name": "MemoApp",
+    "slug": "MemoApp",
     "scheme": "MemoApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,13 +10,18 @@
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "jp.workabroad.memoapp",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "jp.workabroad.memoapp",
+      "versionCode": "1",
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -29,6 +34,12 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7407a897-7247-4ae2-ab52-9389ff2591c9"
+      }
+    }
   }
 }
